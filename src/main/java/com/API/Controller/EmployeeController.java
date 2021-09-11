@@ -29,10 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.API.DemoApplication;
 import com.API.Service.EmployeeService;
+import com.API.Service.Student_Service;
 import com.API.dto.EmployeeDTO;
 import com.API.errors.ResourceNotFoundException;
 import com.API.integrations.EmployeeRepository;
 import com.API.model.Employee;
+import com.API.model.Students;
 
 
 @RestController
@@ -40,6 +42,8 @@ import com.API.model.Employee;
 public class EmployeeController implements ErrorController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private Student_Service studentService;
     private static final Logger LOGGER = LogManager.getLogger(EmployeeController.class);
 
     
@@ -55,6 +59,11 @@ public class EmployeeController implements ErrorController {
     public List<EmployeeDTO> getAllEmployees() {
     	LOGGER.info("This is info message");
         return employeeService.getAllEmployees();
+    }
+    
+    @GetMapping("/students/{ID}")
+    public Students getStudentByID(@PathVariable long ID) {
+    	return studentService.getStudentByID(ID);
     }
     
     @GetMapping("/employees/{id}")
